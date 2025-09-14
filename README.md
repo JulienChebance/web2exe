@@ -19,7 +19,7 @@ Embed a static website made of HTML, JS and CSS into a Windows executable.
 
 #### Usage
 
-- Create a new folder and copy the following files in it: ``AssemblyInfo.cs``, ``web2exe.cs``, ``LICENSE.txt`` and ``run.bat``
+- Create a new folder and copy the following files in it: ``AssemblyInfo.cs``, ``web2exe.cs``, ``LICENSE.txt`` and ``run.bat`` (See [Releases](https://github.com/JulienChebance/web2exe/releases/latest) to get a zip of these files)
 - Put all the files from your website in it
 	- The root page of your website must be ``index.html``
 	- The icon must be ``favicon.ico``
