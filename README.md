@@ -2,7 +2,7 @@
 
 Embed a static website made of HTML, JS and CSS into a Windows executable.
 
-#### Features
+### Features
 
 - Small size: only a few dozen KB (depending on your website)
 - Only two portable files to share - no need to install  
@@ -16,8 +16,11 @@ Embed a static website made of HTML, JS and CSS into a Windows executable.
 - Support Kiosk mode
 - Support web storage (cookies, LocalStorage and IndexedDB)
 - No need of internet connection
+- Gzip compression at built (*Only available when built through Github Actions*)
 
-#### Usage
+### Usage
+
+**Manual build**
 
 - Create a new folder and copy the following files in it: ``AssemblyInfo.cs``, ``web2exe.cs``, ``LICENSE.txt`` and ``run.bat`` (See [Releases](https://github.com/JulienChebance/web2exe/releases/latest) to get a zip of these files)
 - Put all the files from your website in it
@@ -28,7 +31,11 @@ Embed a static website made of HTML, JS and CSS into a Windows executable.
 
 The exe file will be created.
 
-#### License
+**Github workflow**
+
+See [Restfox.Light repository](https://github.com/JulienChebance/Restfox.Light) and its [build action](https://github.com/JulienChebance/Restfox.Light/blob/main/.github/workflows/main.yml) as an example.
+
+### License
 
 This Software is released under the [MIT](LICENSE.txt) license.
 
