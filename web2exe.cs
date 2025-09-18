@@ -102,7 +102,6 @@ public class WebServer {
 		{".svg", "image/svg+xml"},
 		{".ttf", "font/ttf"},
 		{".txt", "text/plain"},
-		{".webmanifest", "application/manifest+json"},
 		{".woff2", "font/woff2"}
 	}; // See https://github.com/Microsoft/referencesource/blob/master/System.Web/MimeMapping.cs or https://github.com/samuelneff/MimeTypeMap/blob/master/MimeTypeMap.cs to add some
 
@@ -185,10 +184,18 @@ class Web2exe {
 		string mime;
 		response.ContentType = WebServer._mimeTypeMappings.TryGetValue(Path.GetExtension(filename), out mime)?mime:"application/octet-stream";
 		// MIME types are often defined in the registry, enabling a wide compatibility with a lot of extension
-		response.ContentType = (string) Registry.GetValue(@"HKEY_CLASSES_ROOT\" + Path.GetExtension(filename), "Content Type", response.ContentType);
+		response.ContentType = (string) Registry.GetValue(@"HKEY_CLASSES_ROOT\" + Path.GetExtension(filename), "Content Type", null) ?? response.ContentType;
 		
 		// Find file
-		if (Assembly.GetExecutingAssembly().GetManifestResourceNames().Contains(filename)) { // Check if the resource is embedded inside the executable
+		if (Assembly.GetExecutingAssembly().GetManifestResourceNames().Contains(filename + ".gz")) { // Check if the resource is embedded inside the executable
+			Console.WriteLine("Reply (gzipped resource): " + filename + ".gz");
+			response.AddHeader("Content-Encoding", "gzip");
+			using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(filename + ".gz"))
+			using (MemoryStream ms = new MemoryStream()) {
+				stream.CopyTo(ms);
+				return ms.ToArray();
+			}
+		} else if (Assembly.GetExecutingAssembly().GetManifestResourceNames().Contains(filename)) { // Check if the resource is embedded inside the executable
 			Console.WriteLine("Reply (resource): " + filename);
 			using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(filename))
 			using (MemoryStream ms = new MemoryStream()) {
