@@ -16,7 +16,7 @@ jobs:
       - name: Compress
         uses: vimtor/action-zip@v1.2
         with:
-          files: AssemblyInfo.cs web2exe.cs LICENSE.txt run.bat
+          files: AssemblyInfo.cs web2exe.cs injector.js LICENSE.txt run.bat
           dest: web2exe.zip
       - name: Release
         uses: softprops/action-gh-release@v2
