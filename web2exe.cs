@@ -179,6 +179,11 @@ class Web2exe {
 		if (filename == "") { // root URL -> index.html
 			filename = "index.html";
 		}
+		if (filename == "index.html" && !String.IsNullOrEmpty(request.QueryString["_open"])) {
+			Process.Start(request.QueryString["_open"]);
+			response.StatusCode = 204; // No content
+			return new byte[0];
+		}
 		
 		// Set MIME type based on extension
 		string mime;
@@ -215,7 +220,7 @@ class Web2exe {
 		}
 		Console.WriteLine("File not found");
 		response.StatusCode = 404;
-		return null; // Otherwise, return nothing
+		return new byte[0]; // Otherwise, return an empty string
 	}
 	
 	// Handle WebSocket
