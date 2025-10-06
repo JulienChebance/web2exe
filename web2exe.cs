@@ -343,7 +343,9 @@ class Web2exe {
 			Console.WriteLine("Listening on port " + port + "...");
 
 			// Browser command line switches
+			// --disable-sync								Disables syncing browser data to a Google Account
 			// --disable-extensions							Avoid extensions interference with the app
+			// --disable-default-apps						Disable installation of default apps
 			// --disable-features=Translate,TranslateUI		Disable Chrome translation popup ("Would you like to translate this page?")
 			// --disable-features=PersistentHistograms		Avoid the creation of a 4MB file in the profile folder
 			// --disable-web-security						Disable CORS checks
@@ -351,8 +353,11 @@ class Web2exe {
 			// --disk-cache-dir=null						Disable file caching
 			// --user-data-dir								Use a totally new profile. This way, the Chrome process is independant from any other than could already run on the device
 			// --no-default-browser-check					Disable the default browser check
+			// --no-first-run								Skip first run wizards
+			// --disable-search-engine-choice-screen		Disable the search engine choice screen
+			// --disable-prompt-on-repost					Reloading a page that came from a POST normally prompts the user
 			// --app										Open the followed URL in app mode: no menu, no toolbar, no address bar...
-			string switches = "--disable-extensions --disable-features=Translate,TranslateUI,PersistentHistograms --disable-web-security --test-type --disk-cache-dir=null --user-data-dir=\"" + profilePath + "\" --no-default-browser-check --app=http://localhost:" + port + "/?" + queryString;
+			string switches = "--disable-sync --disable-extensions --disable-default-apps --disable-features=Translate,TranslateUI,PersistentHistograms --disable-web-security --test-type --disk-cache-dir=null --user-data-dir=\"" + profilePath + "\" --no-default-browser-check --no-first-run --disable-search-engine-choice-screen --disable-prompt-on-repost --app=http://localhost:" + port + "/?" + queryString;
 			if (startMaximized) {
 				switches += " --start-maximized";
 			} else if (kiosk) {
